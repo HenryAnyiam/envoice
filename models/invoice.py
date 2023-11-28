@@ -29,79 +29,100 @@ class Invoice_Form(CTkScrollableFrame):
         self.getCustomerName = CTkEntry(self, placeholder_text="Input Customer Name",
                                         placeholder_text_color='#484848', width=400, height=40,
                                         corner_radius=3, border_color='#00a9ff', border_width=1,
-                                        fg_color='#fff')
+                                        fg_color='#fff', text_color='black')
         self.getCustomerName.grid(row=0, column=0, columnspan=3, padx=10, pady=(30, 10))
 
         self.getCustomerAddress = CTkEntry(self, placeholder_text="Input Customer Address",
                                            placeholder_text_color='#484848', width=400, height=40,
                                            corner_radius=3, border_color='#00a9ff', border_width=1,
-                                           fg_color='#fff')
+                                           fg_color='#fff', text_color='black')
         self.getCustomerAddress.grid(row=1, column=0, columnspan=3, padx=10, pady=10)
 
         self.getCustomerPhone = CTkEntry(self, placeholder_text="Input Customer Phone Number",
                                          placeholder_text_color='#484848', width=400, height=40,
                                          corner_radius=3, border_color='#00a9ff', border_width=1,
-                                         fg_color='#fff')
+                                         fg_color='#fff', text_color='black')
         self.getCustomerPhone.grid(row=2, column=0, columnspan=3, padx=10, pady=10)
 
         self.row = 3
-        self.getItem = CTkEntry(self, placeholder_text="Input Item",
-                                placeholder_text_color='#484848', width=300, height=40,
+        self.getItem = CTkEntry(self, placeholder_text="Input Item", text_color='black',
+                                placeholder_text_color='#484848', width=400, height=40,
                                 corner_radius=3, border_color='#00a9ff', border_width=1,
                                 fg_color='#fff')
-        self.getItem.grid(row=(self.row + 1), column=0, columnspan=2, padx=(10, 2), pady=10)
+        self.getItem.grid(row=(self.row + 1), column=0, columnspan=3, padx=10, pady=10)
 
-        self.getQty = CTkEntry(self, placeholder_text="Qty",
+        self.getPrice = CTkEntry(self, placeholder_text="Input Unit Price", text_color='black',
+                                 placeholder_text_color='#484848', width=150, height=40,
+                                 corner_radius=3, border_color='#00a9ff', border_width=1,
+                                 fg_color='#fff')
+        self.getPrice.grid(row=(self.row + 2), column=0, padx=(40, 2), pady=10)
+
+        self.getQty = CTkEntry(self, placeholder_text="Qty", text_color='black',
                                placeholder_text_color='#484848', width=60, height=40,
                                corner_radius=3, border_color='#00a9ff', border_width=1,
                                fg_color='#fff')
-        self.getQty.grid(row=(self.row + 1), column=2, padx=2, pady=10)
+        self.getQty.grid(row=(self.row + 2), column=1, padx=2, pady=10)
 
-        self.getPrice = CTkEntry(self, placeholder_text="Input Unit Price",
-                                 placeholder_text_color='#484848', width=200, height=40,
-                                 corner_radius=3, border_color='#00a9ff', border_width=1,
-                                 fg_color='#fff')
-        self.getPrice.grid(row=(self.row + 2), column=0, padx=(30, 2), pady=10)
-
-        self.getType = CTkEntry(self, placeholder_text="Type",
-                                placeholder_text_color='#484848', width=60, height=40,
+        self.getType = CTkEntry(self, placeholder_text="Type", text_color='black',
+                                placeholder_text_color='#484848', width=100, height=40,
                                 corner_radius=3, border_color='#00a9ff', border_width=1,
                                 fg_color='#fff')
-        self.getType.grid(row=(self.row + 2), column=1, padx=2, pady=10)
+        self.getType.grid(row=(self.row + 2), column=2, padx=(2, 30), pady=10)
 
-        self.add = CTkButton(self, text='Add Item', width=80, height=50, corner_radius=5,
+        self.deleteLast = CTkButton(self, text='Delete Last Entry', width=80, height=40, corner_radius=5,
+                                    hover=True, hover_color='#3bc8ff', fg_color='#00a9ff',
+                                    text_color='white', anchor='center', border_spacing=5, command=self.delete_last)
+        self.deleteLast.grid(row=(self.row + 3), column=0, padx=(10, 2), pady=10)
+
+        self.add = CTkButton(self, text='Add Entry', width=80, height=40, corner_radius=5,
                              hover=True, hover_color='#3bc8ff', fg_color='#00a9ff',
                              text_color='white', anchor='center', border_spacing=5, command=self.add_item)
-        self.add.grid(row=(self.row + 2), column=2, padx=(2, 30), pady=10)
+        self.add.grid(row=(self.row + 3), column=1, padx=2, pady=10)
+        
+        self.clearList = CTkButton(self, text='Clear Entries', width=100, height=40, corner_radius=5,
+                                   hover=True, hover_color='#3bc8ff', fg_color='#00a9ff',
+                                   text_color='white', anchor='center', border_spacing=5, command=self.clear_list)
+        self.clearList.grid(row=(self.row + 3), column=2, padx=(2, 30), pady=10)
 
-        self.status = CTkOptionMenu(self, width=110, height=40,
+        self.status = CTkOptionMenu(self, width=100, height=40,
                                     values=['Part Payment', 'Paid', 'Not Paid'], text_color='#484848',
                                     fg_color='white', corner_radius=5, hover=True,
                                     button_hover_color='#3bc8ff', dropdown_fg_color='white',
                                     dropdown_hover_color='#3bc8ff', button_color='#00a9ff',
                                     dropdown_text_color='#484848', dynamic_resizing=False)
         self.status.set('Status')
-        self.status.grid(row=(self.row + 3), column=0, padx=(30, 2), pady=10)
+        self.status.grid(row=(self.row + 4), column=0, padx=(10, 2), pady=10)
 
-        self.Warranty = CTkOptionMenu(self, width=110, height=40,
+        self.Warranty = CTkOptionMenu(self, width=105, height=40,
                                       values=['One Year', '6 Months', 'None'], text_color='#484848',
                                       fg_color='white', corner_radius=5, hover=True,
                                       button_hover_color='#3bc8ff', dropdown_fg_color='white',
                                       dropdown_hover_color='#3bc8ff', button_color='#00a9ff',
                                       dropdown_text_color='#484848', dynamic_resizing=False)
         self.Warranty.set('Warranty')
-        self.Warranty.grid(row=(self.row + 3), column=1, padx=2, pady=10)
+        self.Warranty.grid(row=(self.row + 4), column=1, padx=2, pady=10)
 
-        self.Installation = CTkEntry(self, placeholder_text="Installation",
-                                     placeholder_text_color='#484848', width=200, height=40,
+        self.Installation = CTkEntry(self, placeholder_text="Installation", text_color='black',
+                                     placeholder_text_color='#484848', width=120, height=40,
                                      corner_radius=3, border_color='#00a9ff', border_width=1,
                                      fg_color='#fff')
-        self.Installation.grid(row=(self.row + 3), column=2, padx=10, pady=10)
+        self.Installation.grid(row=(self.row + 4), column=2, padx=(2, 40), pady=10)
+
+        self.preview = CTkButton(self, text='Preview Items', width=100, height=40, corner_radius=5,
+                                 hover=True, hover_color='#3bc8ff', fg_color='#00a9ff',
+                                 text_color='white', anchor='center', border_spacing=5, command=self.PreviewItem)
+        self.preview.grid(row=(self.row + 5), column=0, padx=(30, 2), pady=(10, 30))
+
+        self.addToLedger = CTkButton(self, text='Add to Ledger', width=80, height=40, corner_radius=5,
+                                     hover=True, hover_color='#3bc8ff', fg_color='#00a9ff',
+                                     text_color='white', anchor='center', border_spacing=5, 
+                                     command=self.add_to_ledger)
+        self.addToLedger.grid(row=(self.row + 5), column=1, padx=2, pady=(10, 30))
 
         self.generate = CTkButton(self, text='Generate Invoice', width=80, height=40, corner_radius=5,
                                   hover=True, hover_color='#3bc8ff', fg_color='#00a9ff',
                                   text_color='white', anchor='center', border_spacing=5, command=self.generate_pdf)
-        self.generate.grid(row=(self.row + 4), column=0, columnspan=3, padx=(10, 30), pady=(10, 30))
+        self.generate.grid(row=(self.row + 5), column=2, padx=(2, 40), pady=(10, 30))
 
     def reload(self):
         """reloads user details from file storage"""
@@ -110,6 +131,65 @@ class Invoice_Form(CTkScrollableFrame):
                 self.__invoice_data = json.load(my_file)
         except Exception:
             pass
+
+    def save(self):
+        """saved serialized user details to __file_path"""
+        with open(self.__file_path, 'w', encoding="UTF-8") as my_file:
+            json.dump(self.__invoice_data, my_file)
+
+    def add_to_ledger(self):
+        """save current stock"""
+        Ledger = self.__invoice_data.get('Ledger', {})
+        Date = date.today().strftime("%dth %B %Y")
+        if Date[1] == '1':
+                Date = Date.replace('th', 'st')
+        elif Date[1] == '2':
+            Date = Date.replace('th', 'nd')
+        elif Date[1] == '3':
+            Date = Date.replace('th', 'rd')
+        sales = Ledger.get(Date, [])
+        sales.extend(self.__items)
+        Ledger[Date] = sales
+        self.__invoice_data['Ledger'] = Ledger
+        self.save()
+
+    def delete_last(self):
+        """delete last entered entry"""
+        del self.__items[-1]
+        self.__table_data[-1].grid_forget()
+        del self.__table_data[-1]
+        self.row -= 1
+        self.rearrange()
+
+    def rearrange(self):
+        """rearrange the grid as it should be"""
+        self.getItem.grid_forget()
+        self.getItem.grid(row=(self.row + 1), column=0, columnspan=3, padx=10, pady=10)
+        self.getPrice.grid_forget()
+        self.getPrice.grid(row=(self.row + 2), column=0, padx=(40, 2), pady=10)
+        self.getQty.grid_forget()
+        self.getQty.grid(row=(self.row + 2), column=1, padx=2, pady=10)
+        self.getType.grid_forget()
+        self.getType.grid(row=(self.row + 2), column=2, padx=(2, 30), pady=10)
+        self.add.grid_forget()
+        self.add.grid(row=(self.row + 3), column=1, padx=2, pady=10)
+        self.deleteLast.grid_forget()
+        self.deleteLast.grid(row=(self.row + 3), column=0, padx=(10, 2), pady=10)
+        self.clearList.grid_forget()
+        self.clearList.grid(row=(self.row + 3), column=2, padx=(2, 30), pady=10)
+        self.status.grid_forget()
+        self.status.grid(row=(self.row + 4), column=0, padx=(10, 2), pady=10)
+        self.Warranty.grid_forget()
+        self.Warranty.grid(row=(self.row + 4), column=1, padx=2, pady=10)
+        self.Installation.grid_forget()
+        self.Installation.grid(row=(self.row + 4), column=2, padx=(2, 40), pady=10)
+        self.preview.grid_forget()
+        self.preview.grid(row=(self.row + 5), column=0, padx=(30, 2), pady=(10, 30))
+        self.addToLedger.grid_forget()
+        self.addToLedger.grid(row=(self.row + 5), column=1, padx=2, pady=(10, 30))
+        self.generate.grid_forget()
+        self.generate.grid(row=(self.row + 5), column=2, padx=(2, 40), pady=(10, 30))
+        
 
     def add_item(self):
         """add item to distionary"""
@@ -149,27 +229,20 @@ class Invoice_Form(CTkScrollableFrame):
             self.getQty.delete(0, (q_length + 1))
             self.getItem.delete(0, (len(item) + 1))
             self.__items.append(new)
-            data = f'Item: {new["item"]}, Price: {new["price"]}, Qty: {new["qty"]}, Total: {new["total"]}'
+            data = f'{new["qty"]} of {new["item"]} at {new["price"]} each'
             data_label = CTkLabel(self, text=data, font=('Times New Roman', 17),
                                   fg_color='transparent', corner_radius=0,
                                   text_color='#484848', anchor='center')
             self.__table_data.append(data_label)
-            self.__table_data[-1].grid(row=self.row, column=0, columnspan=3, padx=10, pady=10)
+            self.__table_data[-1].grid(row=self.row, column=0, columnspan=3, padx=10, pady=2)
             self.row += 1
             self.grid_rowconfigure((self.row + 3), weight=1)
-            self.getItem.grid(row=(self.row + 1), column=0, columnspan=2, padx=(10, 2), pady=10)
-            self.getPrice.grid(row=(self.row + 2), column=0, padx=(30, 2), pady=10)
-            self.getQty.grid(row=(self.row + 1), column=2, padx=2, pady=10)
-            self.getType.grid(row=(self.row + 2), column=1, padx=2, pady=10)
-            self.add.grid(row=(self.row + 2), column=2, padx=(2, 30), pady=10)
-            self.status.grid(row=(self.row + 3), column=0, padx=(30, 2), pady=10)
-            self.Warranty.grid(row=(self.row + 3), column=1, padx=2, pady=10)
-            self.Installation.grid(row=(self.row + 3), column=2, padx=10, pady=10)
-            self.generate.grid(row=(self.row + 4), column=0, columnspan=3, padx=(10, 30), pady=(10, 30))
+            self.rearrange()
 
     def generate_pdf(self):
         """generate PDF"""
 
+        self.reload()
         file_path = filedialog.asksaveasfilename(title="Save Invoice",
                                                  filetypes=(("PDF files", ".pdf"), ("All files", "*.*")))
         if file_path:
@@ -225,6 +298,12 @@ class Invoice_Form(CTkScrollableFrame):
                 y_cord -= 20
 
             Date = date.today().strftime("%dth %B %Y")
+            if Date[1] == '1':
+                Date = Date.replace('th', 'st')
+            elif Date[1] == '2':
+                Date = Date.replace('th', 'nd')
+            elif Date[1] == '3':
+                Date = Date.replace('th', 'rd')
             pdf.drawString(430, y_cord, f'Date: {Date}')
             y_cord = 530
             if len(self.__items) > 10:
@@ -306,13 +385,95 @@ class Invoice_Form(CTkScrollableFrame):
             self.__table_data.clear()
             self.__items.clear()
             self.row = 3
-            self.grid_rowconfigure((0, 1, 2, 3, 4, 5, 6), weight=1)
-            self.getItem.grid(row=(self.row + 1), column=0, columnspan=2, padx=(10, 2), pady=10)
-            self.getPrice.grid(row=(self.row + 2), column=0, padx=(30, 2), pady=10)
-            self.getQty.grid(row=(self.row + 1), column=2, padx=2, pady=10)
-            self.getType.grid(row=(self.row + 2), column=1, padx=2, pady=10)
-            self.add.grid(row=(self.row + 2), column=2, padx=(2, 30), pady=10)
-            self.status.grid(row=(self.row + 3), column=0, padx=(30, 2), pady=10)
-            self.Warranty.grid(row=(self.row + 3), column=1, padx=2, pady=10)
-            self.Installation.grid(row=(self.row + 3), column=2, padx=10, pady=10)
-            self.generate.grid(row=(self.row + 4), column=0, columnspan=3, padx=(10, 30), pady=(10, 30))
+            self.grid_rowconfigure((0, 1, 2, 3, 4, 5, 6, 7), weight=1)
+            self.rearrange()
+    
+    def clear_list(self):
+        """clears current list"""
+        for i in self.__table_data:
+                i.grid_forget()
+        self.__table_data.clear()
+        self.__items.clear()
+        self.row = 3
+        self.grid_rowconfigure((0, 1, 2, 3, 4, 5, 6, 7), weight=1)
+        self.rearrange()
+
+    def PreviewItem(self):
+        """top level frame for item preview"""
+        New = CTkToplevel(self)
+        New.title('Preview Added Items')
+        New.grid_columnconfigure(0, weight=1)
+        New.grid_rowconfigure(0, weight=1)
+
+        ItemFrame = CTkScrollableFrame(New, fg_color='#a0e9ff', width=650, height=300,
+                                       border_width=1, border_color='#00a9ff', corner_radius=0,
+                                       scrollbar_button_hover_color='#00a9ff')
+        ItemFrame.grid(row=0, column=0, sticky='nesw')
+        table_items = CTkLabel(ItemFrame, text='Items', font=('Times New Roman', 18, 'bold'),
+                                fg_color='transparent', corner_radius=0, width=200,
+                                text_color='#484848', anchor='center')
+        table_items.grid(row=0, column=0, padx=5, pady=10)
+        table_price = CTkLabel(ItemFrame, text='Price', font=('Times New Roman', 18, 'bold'),
+                                fg_color='transparent', corner_radius=0, width=100,
+                                text_color='#484848', anchor='center')
+        table_price.grid(row=0, column=1, padx=5, pady=10)
+        table_qty = CTkLabel(ItemFrame, text='Qty', font=('Times New Roman', 18, 'bold'),
+                                fg_color='transparent', corner_radius=0, width=100,
+                                text_color='#484848', anchor='center')
+        table_qty.grid(row=0, column=2, padx=5, pady=10)
+        table_total = CTkLabel(ItemFrame, text='Total', font=('Times New Roman', 18, 'bold'),
+                                fg_color='transparent', corner_radius=0, width=100,
+                                text_color='#484848', anchor='center')
+        table_total.grid(row=0, column=3, padx=5, pady=10)
+        Trow = 0
+        ftotal = 0
+        for j in self.__items:
+            Trow += 1
+            item = CTkLabel(ItemFrame, text=j.get('item'), font=('Times New Roman', 16),
+                            fg_color='transparent', corner_radius=0, width=200,
+                            text_color='#484848', anchor='center')
+            item.grid(row=Trow, column=0, padx=5, pady=2)
+            price = CTkLabel(ItemFrame, text=j.get('price'), font=('Times New Roman', 16),
+                                fg_color='transparent', corner_radius=0, width=100,
+                                text_color='#484848', anchor='center')
+            price.grid(row=Trow, column=1, padx=5, pady=2)
+            qty = CTkLabel(ItemFrame, text=j.get('qty'), font=('Times New Roman', 16),
+                            fg_color='transparent', corner_radius=0, width=100,
+                            text_color='#484848', anchor='center')
+            qty.grid(row=Trow, column=2, padx=5, pady=2)
+            total = CTkLabel(ItemFrame, text=j.get('total'), font=('Times New Roman', 16),
+                                fg_color='transparent', corner_radius=0, width=100,
+                                text_color='#484848', anchor='center')
+            total.grid(row=Trow, column=3, padx=5, pady=2)
+            ftotal += int(j.get('total'))
+        service = self.Installation.get()
+        if service != '':
+            try:
+                service = int(service)
+            except ValueError:
+                pass
+            else:
+                ftotal += service
+                installation_label = CTkLabel(ItemFrame, text='Installation:', font=('Times New Roman', 18, 'bold'),
+                                              fg_color='transparent', corner_radius=0, width=200,
+                                              text_color='#484848', anchor='center')
+                Trow += 1
+                installation_label.grid(row=Trow, column=0, padx=5, pady=(30, 2))
+                installation_price = CTkLabel(ItemFrame, text=locale.format_string("%d", service, grouping=True),
+                                              fg_color='transparent', corner_radius=0, width=200,
+                                              text_color='#484848', anchor='center',  font=('Times New Roman', 18, 'bold'))
+                installation_price.grid(row=Trow, column=1, padx=5, pady=(30, 2))
+        Trow += 1
+        final_total_label = CTkLabel(ItemFrame, text='Total:', font=('Times New Roman', 18, 'bold'),
+                                fg_color='transparent', corner_radius=0, width=200,
+                                text_color='#484848', anchor='center')
+        
+        final_total = CTkLabel(ItemFrame, text=locale.format_string("%d", ftotal, grouping=True),
+                                fg_color='transparent', corner_radius=0, width=200,
+                                text_color='#484848', anchor='center',  font=('Times New Roman', 18, 'bold'))
+        if service == '':
+            final_total_label.grid(row=Trow, column=0, padx=5, pady=30)
+            final_total.grid(row=Trow, column=1, padx=5, pady=30)
+        else:
+            final_total_label.grid(row=Trow, column=0, padx=5, pady=(2, 30))
+            final_total.grid(row=Trow, column=1, padx=5, pady=(2, 30))

@@ -6,7 +6,7 @@ import json
 from os import path
 
 
-class Owner(CTkFrame):
+class Owner(CTkScrollableFrame):
     """frame holding user input details"""
 
     __file_path = 'file.json'
